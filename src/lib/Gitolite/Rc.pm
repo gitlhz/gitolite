@@ -524,6 +524,8 @@ __DATA__
     # LOG_DEST                      => 'repo-log,normal',
     # LOG_DEST                      => 'repo-log,syslog',
     # LOG_DEST                      => 'repo-log,syslog,normal',
+    # syslog 'facility': defaults to 'local0', uncomment if needed.  For example:
+    # LOG_FACILITY                  => 'local4',
 
     # roles.  add more roles (like MANAGER, TESTER, ...) here.
     #   WARNING: if you make changes to this hash, you MUST run 'gitolite
@@ -595,7 +597,7 @@ __DATA__
             # essential (unless you're using smart-http mode)
             'ssh-authkeys',
 
-            # creates git-config enties from gitolite.conf file entries like 'config foo.bar = baz'
+            # creates git-config entries from gitolite.conf file entries like 'config foo.bar = baz'
             'git-config',
 
             # creates git-daemon-export-ok files; if you don't use git-daemon, comment this out

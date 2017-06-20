@@ -235,7 +235,8 @@ sub cleanup_conf_line {
             chomp($repo);
             $repo =~ s/\.git$//;
             $repo =~ s(^\./)();
-            push @phy_repos, $repo;
+            push @phy_repos, $repo unless $repo =~ m(/$);
+                # tolerate bare repos within ~/repositories but silently ignore them
         }
         trace( 3, scalar(@phy_repos) . " physical repos found" );
         return sort_u( \@phy_repos );
@@ -304,7 +305,7 @@ sub gl_log {
             require Sys::Syslog;
             Sys::Syslog->import(qw(:standard));
 
-            openlog("gitolite" . ( $ENV{GL_TID} ? "[$ENV{GL_TID}]" : "" ), "pid", "local0");
+            openlog("gitolite" . ( $ENV{GL_TID} ? "[$ENV{GL_TID}]" : "" ), "pid", $Gitolite::Rc::rc{LOG_FACILITY} || 'local0');
             $syslog_opened = 1;
         }
 
